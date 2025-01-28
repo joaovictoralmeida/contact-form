@@ -56,7 +56,7 @@ export default function Home() {
                     />
                   </label>
 
-                  <label className={`${selectedOption === "Support" ? "bg-[#dff1e7] border-[#2b4246]" : ""} flex`}>
+                  <label className={`${selectedOption === "Support" ? "bg-[#dff1e7] border-[#2b4246]" : ""}`}>
                     <InputRadio
                     type="radio"
                     label="Support Request"
