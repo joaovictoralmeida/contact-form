@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 
 import InputRadio from "./components/InputRadio";
 import { IoMdStar } from "react-icons/io";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 export default function Home() {
 
   const [selectedOption, setSelectedOption] = useState()
+  const [successMessage, setSuccessMessage] = useState()
   
       const handleChange = (event) => {
           setSelectedOption(event.target.value)
@@ -17,6 +19,7 @@ export default function Home() {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: {errors},
   } = useForm()
   
@@ -26,13 +29,26 @@ export default function Home() {
         type: "manual",
         message: "To submit this form, please consent to being contacted"
       })
+      return
     }
-    return
+    setTimeout(() => {
+      setSuccessMessage("Message Sent! | Thanks for completing the form. We'll be in touch soon!")
+      reset()
+      setTimeout(() => setSuccessMessage(""), 5000)
+    }, 1000)
   }
+
+  
 
   return (
     <div className="flex bg-[#dff1e7] h-screen w-screen items-center justify-center font-karla md:h-full ">
       <div className="flex flex-col w-[1216px] items-center md:my-10">
+        {successMessage && (
+          <div className="bg-[#2b4246] rounded-lg p-5">
+            <p className="font-semibold text-white">{successMessage.split("|")[0]}</p>
+            <p className="text-white">{successMessage.split("|")[1]}</p>
+          </div>
+        )}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8 bg-white rounded-xl p-5 ">
           <h1 className="text-2xl font-bold">Contact Us</h1>
           <div className="flex gap-5 justify-between md:flex-col">
@@ -125,7 +141,7 @@ export default function Home() {
             <p className="text-sm text-red-500">{errors.consent.message}</p>
           )}
 
-          <button className="bg-[#0c7d69] hover:bg-[#2b4246] h-12 rounded-md text-white">Submit</button>
+          <button type="submit" className="bg-[#0c7d69] hover:bg-[#2b4246] h-12 rounded-md text-white">Submit</button>
         </form>
       </div>
     </div>
