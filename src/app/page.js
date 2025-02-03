@@ -98,9 +98,9 @@ export default function Home() {
               <IoMdStar className="text-[#2b4246] w-2"/>
             </div>
 
-            <div className="flex flex-col justify-between md:flex-col gap-5">
+            <div className="flex flex-col justify-between gap-5">
               
-              <div className="flex gap-10">
+              <div className="flex gap-10 md:flex-col">
                 <label className={`${selectedOption === 'General' ? "bg-[#DFF1E7] border-[#2B4246]" : ""}`}>
                   <div className="flex gap-2">
                     <label className="flex items-center gap-2 border border-[#87A3A6] rounded-md pl-2 h-12 w-[300px] hover:border-[#0C7D69] md:w-full">
