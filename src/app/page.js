@@ -34,6 +34,7 @@ export default function Home() {
     setTimeout(() => {
       setSuccessMessage("Message Sent! | Thanks for completing the form. We'll be in touch soon!")
       reset()
+      setSelectedOption("")
       setTimeout(() => setSuccessMessage(""), 5000)
     }, 1000)
   }
@@ -44,8 +45,11 @@ export default function Home() {
     <div className="flex bg-[#dff1e7] h-screen w-screen items-center justify-center font-karla md:h-full ">
       <div className="flex flex-col w-[1216px] items-center md:my-10">
         {successMessage && (
-          <div className="bg-[#2b4246] rounded-lg p-5">
-            <p className="font-semibold text-white">{successMessage.split("|")[0]}</p>
+          <div className="flex flex-col bg-[#2b4246] rounded-lg p-5">
+            <div className="flex items-center gap-1">
+              <FaRegCheckCircle className="text-white"/>
+              <p className="font-semibold text-white">{successMessage.split("|")[0]}</p>
+            </div>
             <p className="text-white">{successMessage.split("|")[1]}</p>
           </div>
         )}
@@ -94,32 +98,41 @@ export default function Home() {
               <IoMdStar className="text-[#2b4246] w-2"/>
             </div>
 
-            <div className="flex justify-between gap-10 md:flex-col">
-
-                  <label className={`${selectedOption === "General" ? "bg-[#dff1e7] border-[#2b4246]" : ""}`}>
-                    <InputRadio
-                    type="radio"
-                    label="General Enquiry"
-                    name="choice"
-                    value="General"
-                    checked={selectedOption === 'General'}
-                    onChange={handleChange}
-                    />
-                  </label>
-
-                  <label className={`${selectedOption === "Support" ? "bg-[#dff1e7] border-[#2b4246]" : ""}`}>
-                    <InputRadio
-                    type="radio"
-                    label="Support Request"
-                    name="choice"
-                    value="Support"
-                    checked={selectedOption === 'Support'}
-                    onChange={handleChange}
-                    />
-                    
-                  </label>
+            <div className="flex flex-col justify-between md:flex-col gap-5">
+              
+              <div className="flex gap-10">
+                <label className={`${selectedOption === 'General' ? "bg-[#DFF1E7] border-[#2B4246]" : ""}`}>
+                  <div className="flex gap-2">
+                    <label className="flex items-center gap-2 border border-[#87A3A6] rounded-md pl-2 h-12 w-[300px] hover:border-[#0C7D69] md:w-full">
+                      <input
+                      {...register("queryType", {required: "Please select a query type"})}
+                      type="radio"
+                      name="choice"
+                      value="General"
+                      onChange={handleChange}/>
+                    General Enquiry</label>
+                  </div>
+                </label>
+                <label className={`${selectedOption === 'Support' ? "bg-[#DFF1E7] border-[#2B4246]" : ""}`}>
+                  <div className="flex gap-2">
+                    <label className="flex items-center gap-2 border border-[#87A3A6] rounded-md pl-2 h-12 w-[300px] hover:border-[#0C7D69] md:w-full">
+                      <input
+                      {...register("queryType", {required: "Please select a query type"})}
+                      type="radio"
+                      name="choice"
+                      value="Support"
+                      onChange={handleChange}/>
                 
+                    Support Request</label>
+                  </div>
+                </label> 
+              </div>
+              {errors.queryType && (
+                <p className="text-sm text-red-500 ">{errors.queryType.message}</p>
+              )}
             </div>
+
+            
           </div>
 
           <div className="flex flex-col gap-3">
